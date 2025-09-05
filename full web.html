@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <title>FreshCart</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f8f8f8;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    header .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2eaf58;
+    }
+    header input {
+      padding: 7px;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    header .buttons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn {
+      padding: 7px 14px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .btn-signin {
+      background: #fff;
+      border: 1px solid #2eaf58;
+      color: #2eaf58;
+    }
+    .btn-cart {
+      background: #2eaf58;
+      color: #fff;
+    }
+
+    /* Banner */
+    .banner {
+      background: #2eaf58;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .banner h1 {
+      font-size: 36px;
+    }
+    .banner p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .banner .start-btn {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #ff8c1a;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Categories */
+      .categories {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .categories h2 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #111;
+    }
+
+    .categories p {
+      font-size: 16px;
+      color: #000000;
+      margin-bottom: 30px;
+    }
+
+    .category-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .category {
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    
+
+    /* Soft background colors */
+    .category:nth-child(1) { background: linear-gradient(to right, #fff7e6, #ffe6cc); }
+    .category:nth-child(2) { background: linear-gradient(to right, #e6ffe6, #ccffcc); }
+    .category:nth-child(3) { background: linear-gradient(to right, #e6f7ff, #cceeff); }
+    .category:nth-child(4) { background: linear-gradient(to right, #fff0f5, #ffe6f0); }
+    .category:nth-child(5) { background: linear-gradient(to right, #ffe6eb, #ffd6e0); }
+    .category:nth-child(6) { background: linear-gradient(to right, #f2f2f2, #e6e6e6); }
+
+    /* Hover effect */
+    .category:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Icon style */
+    .category-icon {
+      font-size: 40px;
+      color: #2eaf58;
+      margin-bottom: 15px;
+    }
+
+    .category h3 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    .category h3 {
+      color: #ffffff; 
+    }
+    
+
+    /* Products */
+    .products {
+      padding: 40px 20px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+   .product-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+    .product-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .product-card h3 {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    .price {
+      color: #2eaf58;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .old-price {
+      text-decoration: line-through;
+      color: #888;
+      margin-left: 5px;
+      font-size: 14px;
+    }
+    .product-card button {
+      margin-top: 10px;
+      padding: 8px 14px;
+      border: none;
+      background: #2eaf58;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #0a1a2f;
+      color: #fff;
+      padding: 40px 20px;
+      margin-top: 50px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .footer-logo h2 {
+      color: #2eaf58;
+      margin-bottom: 10px;
+    }
+
+    .footer-logo p {
+      color: #cfcfcf;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .footer-logo .social-icons a {
+      margin-right: 10px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-logo .social-icons a:hover {
+      color: #2eaf58;
+    }
+
+    .footer-links h4,
+    .footer-service h4,
+    .footer-contact h4 {
+      margin-bottom: 15px;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .footer-links ul,
+    .footer-service ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links ul li,
+    .footer-service ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-links ul li a,
+    .footer-service ul li a {
+      text-decoration: none;
+      color: #cfcfcf;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links ul li a:hover,
+    .footer-service ul li a:hover {
+      color: #2eaf58;
+    }
+
+    .footer-contact p {
+      margin: 8px 0;
+      font-size: 14px;
+      color: #cfcfcf;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 13px;
+      color: #999;
+      border-top: 1px solid #333;
+      padding-top: 15px;
+    }
+
+    .footer-bottom a {
+      color: #cfcfcf;
+      text-decoration: none;
+      margin: 0 5px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+      color: #2eaf58;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">FreshCart</div>
+    <input type="text" placeholder="Search for groceries...">
+    <div class="buttons">
+      <a href="signup.html"><button class="btn btn-signin">Sign In</button></a>
+      <button class="btn btn-cart">Cart</button>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <section class="banner">
+    <h1>Fresh Groceries <span style="color:#ffee00">Delivered Fast</span></h1>
+    <p>Get farm-fresh groceries delivered to your door in as little as 30 minutes</p>
+    <button class="start-btn">Start Shopping Now</button>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories">
+    <h2>Shop by Category</h2>
+    <p>Browse our wide selection of fresh, high-quality groceries</p>
+    <div class="category-list">
+      <div class="category" style="background-image: url('https://www.mapro.com/cdn/shop/articles/mix-fruit-mapro.jpg?v=1742291477&width=750');">
+  <span><h3>Fresh Fruits</span>
+</div>
+
+      <div class="category" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx1rsZxFYfJEAmnIuV9kCnmHV6IEvMdKE4AQ&s');">
+       <span><h3>Vegetables</h3></span>
+    </div>
+
+    <div class="category" style="background-image: url('https://projectblue.blob.core.windows.net/media/Default/_Profiles/8458b6b3/c5430f26/dairy-product-LISTING.jpg?v=637780262650000000');">
+      <span><h3>Dairy & Eggs</h3></span>
+    </div>
+
+      <div class="category" style="background-image: url('https://www.shutterstock.com/image-photo/closeup-freshly-baked-bread-croissants-600nw-2479755681.jpg');">
+        <span><h3>Bakery</h3></span>
+      </div>
+
+      
+
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products">
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="https://www.collinsdictionary.com/images/full/apple_158989157.jpg" alt="Apples">
+        <h3>Organic Red Apples</h3>
+        <p class="price">$4.99 <span class="old-price">$6.99</span></p>
+        <button>Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://www.bobtailfruit.co.uk/media/mageplaza/blog/post/4/2/42e9as7nataai4a6jcufwg.jpeg" alt="Bananas">
+        <h3>Fresh Bananas</h3>
+        <p class="price">$2.49</p>
+        <button>Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqANONRt_3a1iIbI32KJfIXI8kJuEdAw3NYA&s" alt="Milk">
+        <h3>Fresh Whole Milk</h3>
+        <p class="price">$3.99</p>
+        <button>Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHZALgBWyijI6FlRnXkMZ5R6zul8Me5cw3lg&s" alt="Bread">
+        <h3>Artisan Bread</h3>
+        <p class="price">$5.49 <span class="old-price">$7.99</span></p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <!-- Logo & About -->
+      <div class="footer-logo">
+        <h2>FreshCart</h2>
+        <p>Your trusted partner for fresh, quality groceries delivered right to your door.</p>
+        <div class="social-icons">
+          <a href="#">🌐</a>
+          <a href="#">📘</a>
+          <a href="#">🐦</a>
+          <a href="#">📸</a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">How it Works</a></li>
+          <li><a href="#">Delivery Areas</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+
+      <!-- Customer Service -->
+      <div class="footer-service">
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Track Your Order</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer-contact">
+        <h4>Contact Info</h4>
+        <p>📞 1-800-FRESH-99</p>
+        <p>✉️ support@freshcart.com</p>
+        <p>📍 Available in 50+ cities</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2024 FreshCart. All rights reserved. | 
+      <a href="#">Privacy Policy</a> | 
+      <a href="#">Terms of Service</a>
+    </div>
+  </footer>
+
+</body>
+</html>
